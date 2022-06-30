@@ -21,7 +21,7 @@ const Checkout = () => {
     // Create Stripe checkout
     const {
       data: { id },
-    } = await axios.post("/api/checkout_sessions", {
+    } = await axios.post("https://the-sari.vercel.app/api/checkout_sessions", {
       items: Object.entries(cart).map(([_, { id, quantity }]) => ({
         price: id,
         quantity,
