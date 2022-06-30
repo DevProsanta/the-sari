@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
 import Image from "next/image";
-import { BsBagCheckFill } from "react-icons/Bs";
+import { BsBagCheckFill } from "react-icons/bs";
 
 
 import Link from "next/link";
