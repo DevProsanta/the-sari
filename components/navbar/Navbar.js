@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 
-import { BsSearch } from "react-icons/Bs";
-import { MdShoppingBasket } from "react-icons/Md";
+import { BsSearch } from "react-icons/bs";
+import { MdShoppingBasket } from "react-icons/md";
 import { useAuth } from "../../context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

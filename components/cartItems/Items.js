@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
-import { BsTrashFill } from "react-icons/Bs";
+import { BsTrashFill } from "react-icons/bs";
 import { CartState } from "../../CartContext";
 
 const Items = ({ id, url, longTitle, qty, price }) => {
