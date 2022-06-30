@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+
 import { BsSearch } from "react-icons/Bs";
 import { MdShoppingBasket } from "react-icons/Md";
 import { useAuth } from "../../context/AuthContext";

@@ -2,6 +2,8 @@
 import React from "react";
 import Image from "next/image";
 import { BsBagCheckFill } from "react-icons/Bs";
+
+
 import Link from "next/link";
 import { CartState } from "../CartContext";
 import Items from "../components/cartItems/Items";
