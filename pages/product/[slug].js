@@ -9,6 +9,7 @@ import Link from "next/link";
 
 const Post = () => {
   const router = useRouter();
+  console.log(router)
   const { slug } = router.query;
 
   const [service, setService] = useState();

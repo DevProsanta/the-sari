@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CartState } from "../CartContext";
 import Item from "../components/checkoutItems/checkoutItems";
 import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 const Checkout = () => {
   const {

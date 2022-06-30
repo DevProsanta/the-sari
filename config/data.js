@@ -81,8 +81,8 @@ export const products = [
     },
     { 
         id: '6',
-        url: ' https://i.ibb.co/q0r2xQh/sari-6.jpg ',
-        detailUrl:' https://i.ibb.co/ZmN5XMd/sari-6.jpg', 
+        url: 'https://i.ibb.co/q0r2xQh/sari-6.jpg',
+        detailUrl:'https://i.ibb.co/ZmN5XMd/sari-6.jpg', 
             shortTitle: 'Ajrakh Sari',
             longTitle: 'Bandhani Ajrakh Mul Cotton Saree',
             mrp: 2250,
