@@ -3,10 +3,22 @@ import Carousel from "react-material-ui-carousel";
 import  bannerData  from "../config/data";
 import Image from "next/image";
 import ProductSlide from "../components/productSlide/ProductSlide";
+import { CartState } from "../CartContext";
+import { useEffect } from "react";
+
 
 
 
 export default function Home() {
+
+  const {state: {cart}} = CartState();
+  useEffect(()=>{
+    if (typeof window !== 'undefined') {
+    localStorage.setItem("cart",JSON.stringify(cart));
+    }
+    console.log("i am from index, to check localstorage")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   return (
     <div className="bg-mainColor">
@@ -34,6 +46,7 @@ export default function Home() {
                 width="100"
                 height="25"
                 alt="slideimage"
+                priority={true}
               />
             ))}
           </Carousel>

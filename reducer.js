@@ -1,8 +1,8 @@
 
 const reducer = (state, action) => {
-
+  
   if(action.type === "ADD_TO_CART"){
-    return { ...state, cart: [...state.cart, { ...action.payload, qty: 1 }] };
+    return { ...state, cart: [...state?.cart, { ...action.payload, qty: 1 }] };
   }
    
     if (action.type === "CLEAR_CART") {
@@ -12,7 +12,7 @@ const reducer = (state, action) => {
     if (action.type === "REMOVE_ITEM") {
       return {
         ...state,
-        cart: state.cart.filter((curElem) => {
+        cart: state?.cart?.filter((curElem) => {
           return curElem.id !== action.payload;
         }),
       };
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
   
     if (action.type === "INCREMENT") {
       //   we need to find out which item is clicked
-      let updatedCart = state.cart.map((curElem) => {
+      let updatedCart = state?.cart?.map((curElem) => {
         if (curElem.id === action.payload) {
           return { ...curElem, qty: curElem.qty + 1 };
         }
@@ -31,7 +31,7 @@ const reducer = (state, action) => {
   
     if (action.type === "DECREMENT") {
       //   we need to find out which item is clicked
-      let updatedCart = state.cart.map((curElem) => {
+      let updatedCart = state?.cart?.map((curElem) => {
           if (curElem.id === action.payload) {
             return { ...curElem, qty: curElem.qty - 1 };
           }

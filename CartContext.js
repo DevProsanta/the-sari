@@ -1,21 +1,26 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { products } from "./config/data";
 import reducer from "./reducer";
 
-
 export const CarContext = createContext();
 
-const Context = ({ children,product }) => {
-
-    if(!product ){
-      let products = product;
-    } 
-    const [state, dispatch] = useReducer(reducer, {
-      product: products,
-      cart:[],
-    });
- 
- 
+const Context = ({ children,product,carts }) => {
+  
+   const [state, dispatch] = useReducer(reducer, {
+    product: products,
+    cart: [],
+  });
+   useEffect(()=>{
+     state.cart = carts; 
+     console.log(carts,"useeffect")
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   },[carts])
   const clearCart = () => {
     return dispatch({ type: "CLEAR_CART" });
   };
@@ -40,13 +45,12 @@ const Context = ({ children,product }) => {
       payload: id,
     });
   };
-  
 
   const [total, setTotal] = useState();
 
   useEffect(() => {
     setTotal(
-      state.cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
+      state.cart?.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
     );
   }, [state.cart]);
 
@@ -54,7 +58,7 @@ const Context = ({ children,product }) => {
 
   useEffect(() => {
     setTotalMrp(
-      state.cart.reduce((acc, curr) => acc + Number(curr.mrp) * curr.qty, 0)
+      state.cart?.reduce((acc, curr) => acc + Number(curr.mrp) * curr.qty, 0)
     );
   }, [state.cart]);
 
@@ -62,14 +66,28 @@ const Context = ({ children,product }) => {
 
   useEffect(() => {
     setDisc(
-      state.cart.reduce((acc, curr) => acc + (Number(curr.mrp) - Number(curr.price))*curr.qty , 0)
+      state.cart?.reduce(
+        (acc, curr) => acc + (Number(curr.mrp) - Number(curr.price)) * curr.qty,
+        0
+      )
     );
   }, [state.cart]);
 
-
+  
+    
   return (
     <CarContext.Provider
-      value={{ state, dispatch,totalMrp,disc, clearCart, removeItem, increment, decrement, total }}
+      value={{
+        state,
+        dispatch,
+        totalMrp,
+        disc,
+        clearCart,
+        removeItem,
+        increment,
+        decrement,
+        total,
+      }}
     >
       {children}
     </CarContext.Provider>

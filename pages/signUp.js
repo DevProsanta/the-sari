@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { createUser, createUserProfileDocument } from "../utils/firebase.utils";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { useAuth } from "../context/AuthContext";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
@@ -73,8 +72,6 @@ const SignUp = () => {
       });
     }
   };
-  const { currentUser } = useAuth();
-  console.log(currentUser);
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <ToastContainer

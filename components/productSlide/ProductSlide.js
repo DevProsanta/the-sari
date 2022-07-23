@@ -50,8 +50,7 @@ const ProductSlide = ({ timer, title }) => {
           </>
         )}
       </div>
-
-      <Carousel
+      {product? (<Carousel
         responsive={responsive}
         infinite={true}
         draggable={false}
@@ -66,15 +65,15 @@ const ProductSlide = ({ timer, title }) => {
         itemClass="carousel-item-padding-40-px"
         containerClass="carousel-container"
       >
-        {product.map((product, index) => {
+        {product?.map((product, index) => {
           return (
-            <Link href={`/product/${product.longTitle}`} key={index}>
+            <Link href={`/product/${product?.longTitle}`} key={index}>
               <div
                 key={index}
                 className="wrapper bg-white text-center p-2 border-t-4 border-solid border-bordercolor cursor-pointer"
               >
                 <Image
-                  src={product.url}
+                  src={product?.url}
                   className="slide_image"
                   height="200"
                   width="200"
@@ -84,16 +83,16 @@ const ProductSlide = ({ timer, title }) => {
                   className="text mt-1 text-sm"
                   style={{ fontWeight: 600, color: "#212121" }}
                 >
-                  {product.shortTitle}
+                  {product?.shortTitle}
                 </p>
                 <p className="text mt-1 text-sm" style={{ color: "green" }}>
-                  {product.discount}
+                  {product?.discount}
                 </p>
                 <p
                   className="text mt-1 text-sm"
                   style={{ color: "#212121", opacity: ".6" }}
                 >
-                  {product.tagline}
+                  {product?.tagline}
                 </p>
                 {/* <div className="overlay">
                 <a
@@ -111,7 +110,8 @@ const ProductSlide = ({ timer, title }) => {
             </Link>
           );
         })}
-      </Carousel>
+      </Carousel>):("")}
+      
     </div>
   );
 };

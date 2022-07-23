@@ -6,10 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CartState } from "../../CartContext";
 import Link from "next/link";
+import { LocalCartStorage } from "../../utils/firebase.utils";
+import { useAuth } from "../../context/AuthContext";
 
 const Post = () => {
   const router = useRouter();
-  console.log(router)
   const { slug } = router.query;
 
   const [service, setService] = useState();
@@ -18,6 +19,8 @@ const Post = () => {
     state: { product, cart },
     dispatch,
   } = CartState();
+
+  const {currentUser} = useAuth();
 
   const [item, setItem] = useState([]);
 
@@ -28,11 +31,17 @@ const Post = () => {
     }
   }
 
+  const [triggered, setTriggered] = useState(false)
 
   useEffect(() => {
     filterData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
+  useEffect(()=>{
+    if(triggered )
+    LocalCartStorage(currentUser?.id,cart);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[triggered])
 
   const checkService = async () => {
     let pins = await fetch("http://localhost:3000/api/pincode");
@@ -213,14 +222,14 @@ const Post = () => {
                     ₹{item.price}
                   </span>
                   {cart?.find((p) => p.id === item.id) ? (
-                    <Link href="/cart" >
-                    <button className="flex ml-auto text-white bg-color2 border-0 py-2 px-6 focus:outline-none hover:bg-error rounded">
-                      Go To Cart
-                    </button>
+                    <Link href="/cart">
+                      <button className="flex ml-auto text-white bg-color2 border-0 py-2 px-6 focus:outline-none hover:bg-error rounded">
+                        Go To Cart
+                      </button>
                     </Link>
                   ) : (
                     <button
-                      onClick={() =>{
+                      onClick={async () => {
                         toast.success("Item added to Cart", {
                           position: "bottom-center",
                           autoClose: 2000,
@@ -230,11 +239,12 @@ const Post = () => {
                           draggable: true,
                           progress: undefined,
                         });
-                        dispatch({
+                        await dispatch({
                           type: "ADD_TO_CART",
                           payload: item,
-                        })}
-                      }
+                        });
+                        setTriggered(true);
+                      }}
                       className="flex ml-auto text-white bg-pink border-0 py-2 px-6 focus:outline-none hover:bg-color2 rounded"
                     >
                       Add to Cart

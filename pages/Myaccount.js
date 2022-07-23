@@ -145,6 +145,7 @@ const Myaccount = () => {
                  type="text"
                  id="name"
                  name="name"
+                 required="true"
                  className="w-full bg-white rounded border border-gray_300 focus:border-pink focus:ring-2 focus:ring-pink_200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                />
              </div>

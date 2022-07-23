@@ -1,7 +1,16 @@
 import React from "react";
 import Image from "next/image";
+import { useAuth } from "../context/AuthContext";
 
-const orders = () => {
+const Orders = () => {
+
+  const { currentUser } = useAuth()
+  
+  const n = currentUser?.orders?.length;
+  const order = currentUser?.orders?.[n-1];
+  const orderDetail = order?.orders;
+  
+
   return (
     <>
       <section className="text-gray body-font overflow-hidden">
@@ -12,10 +21,10 @@ const orders = () => {
                 Thesari.in
               </h2>
               <h1 className="text-gray text-3xl title-font font-medium mb-4">
-                Order Id: #05862
+                Order Id: #{order?.orderId}
               </h1>
               <p className="leading-relaxed mb-4">
-                Your Order has been place successfully
+                Your Order has been placed successfully
               </p>
               <div className="flex justify-center text-center  mb-4">
                 <a className="flex-grow text-pink border-b-2 border-pink py-2 text-lg px-1">
@@ -25,14 +34,18 @@ const orders = () => {
                   Item Price
                 </a>
               </div>
-              <div className="flex justify-between md:pr-28  mx-2 border-t border-gray py-2">
-                <span className="text-gray">best saree from thesari.in</span>
-                <span className=" text-gray"> ₹500</span>
-              </div>
+              { orderDetail?.map((i,index)=>{
+                return (<div key={index} className="flex justify-between md:pr-28  mx-2 border-b border-gray py-2">
+                <span className="text-gray">{i.shortTitle}</span>
+                <span className=" text-gray"> ₹{i.price}</span>
+              </div>)
+              })
+              }
+              
 
               <div className="flex mt-4">
                 <span className="title-font font-medium text-2xl text-gray">
-                  Subtotal : ₹500
+                  Subtotal : ₹{order?.total}
                 </span>
                 {/* <Link href="/trackOrder"> */}
                 <button className="flex ml-auto text-white bg-pink border-0 py-2 px-6 focus:outline-none hover:bg-pink rounded">
@@ -55,4 +68,4 @@ const orders = () => {
   );
 };
 
-export default orders;
+export default Orders;

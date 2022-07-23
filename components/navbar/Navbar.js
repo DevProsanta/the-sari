@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-
 import { BsSearch } from "react-icons/bs";
 import { MdShoppingBasket } from "react-icons/md";
 import { useAuth } from "../../context/AuthContext";
@@ -88,7 +86,8 @@ const Navbar = () => {
             )}
           </div>
         )}
-        <Link href={"/login"}>
+        
+        {currentUser && (
           <div
             className="Header_option flex flex-col text-white	mr-12 ml-0 "
             onMouseOver={() => {
@@ -103,20 +102,40 @@ const Navbar = () => {
               {currentUser ? currentUser.displayName : "Sign In"}
             </span>
           </div>
-        </Link>
-        <Link href={"/orders"}>
-          <div className="Header_option flex flex-col text-white	mr-12">
-            <span className="Header_optionone text-xs">Returns</span>
+        )}
+        {!currentUser && <Link href={"/login"}>
+          <div className="Header_option flex flex-col text-white	mr-12 ml-0 ">
+            <span className="Header_optionone text-xs">Hello </span>
             <span className="Header_optiontwo text-sm font-extrabold">
-              & Orders
+              Sign In
             </span>
           </div>
-        </Link>
+        </Link>}
+
+        {currentUser ? (
+          <Link href={"/orderhistory"}>
+            <div className="Header_option flex flex-col text-white	mr-12">
+              <span className="Header_optionone text-xs">Returns</span>
+              <span className="Header_optiontwo text-sm font-extrabold">
+                & Orders
+              </span>
+            </div>
+          </Link>
+        ) : (
+          <Link href={"/login"}>
+            <div className="Header_option flex flex-col text-white	mr-12">
+              <span className="Header_optionone text-xs">Returns</span>
+              <span className="Header_optiontwo text-sm font-extrabold">
+                & Orders
+              </span>
+            </div>
+          </Link>
+        )}
         <Link href={"/cart"}>
           <div className="header_optionBasket flex items-center text-white mx-2">
             <MdShoppingBasket size="25" />
             <span className="Header_optiontwo header_basketCount">
-              {cart.length}
+              {cart ? cart.length : 0}
             </span>
           </div>
         </Link>
